@@ -31,9 +31,9 @@ function findLocalAction() {
     // Set the action message for the Karen area
     action = "Plant native trees in Karen to support local wildlife and improve air quality.";
   // If the location does not match any of the three known areas
-  } else {
+  } else (location.toLowerCase() === "other locations") {
     // Set a default action message for any other location
-    action = "Reduce your carbon footprint by saving energy at home and recycling daily.";
+    action = "Find the nearest garbage dumb site and dispose of your waste properly;.
   }
 
   // Write the chosen action message into the output div on the page
