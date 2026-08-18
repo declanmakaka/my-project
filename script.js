@@ -19,21 +19,30 @@ function findStrategy() {
   let action = "";
 
   // Check if the user typed "Kibera" (case-insensitive)
-  if (strategy.toLowerCase() === "kibera") {
+  if (strategy.toLowerCase() === "Plastic") {
     // Set the action message for the Kibera area
-    action = "Join a community clean-up in Kibera to reduce waste and protect local waterways.";
+    action = "Dispose of plastic waste in a plastic recycling bin, use a reusable plastic container, or recycle plastic waste at a recycling center.";
   // Check if the user typed "Westlands" (case-insensitive)
-  } else if (strategy.toLowerCase() === "westlands") {
+  } else if (strategy.toLowerCase() === "paper") {
     // Set the action message for the Westlands area
-    action = "Use public transport or carpool in Westlands to cut down on traffic pollution.";
+    action = "Dispose of paper waste in a paper recycling bin, use a reusable paper container, or recycle paper waste at a recycling center.";
   // Check if the user typed "Karen" (case-insensitive)
-  } else if (strategy.toLowerCase() === "karen") {
+  } else if (strategy.toLowerCase() === "metal") {
     // Set the action message for the Karen area
-    action = "Plant native trees in Karen to support local wildlife and improve air quality.";
+    action = "Dispose of metal waste in a metal recycling bin, use a reusable metal container, or recycle metal waste at a recycling center or scrap yard.";
   // If the strategy does not match any of the three known areas
-  } else {
+  } else if (strategy.toLowerCase() === "glass") {
     // Set a default action message for any other strategy
-    action = "Find the nearest garbage dump site and dispose of your waste properly.";
+    action = "Dispose of glass waste in a glass recycling bin, use a reusable glass container, or recycle glass waste at a recycling center.";
+  } else if (strategy.toLowerCase() === "organic") {
+    // Set a default action message for any other strategy
+    action = "Dispose of organic waste in a compost bin, use a reusable organic container, or recycle organic waste at a recycling center.";
+  } else if (strategy.toLowerCase() === "electronics") {
+    // Set a default action message for any other strategy
+    action = "Dispose of electronics waste in a electronics recycling bin, use a reusable electronics container, or recycle electronics waste at a recycling center.";
+  } else if (strategy.toLowerCase() === "clothes") {
+    // Set a default action message for any other strategy
+    action = "Dispose of clothes waste in a clothes recycling bin, use a reusable clothes container, or recycle clothes waste at a recycling center.";
   }
 
   // Write the chosen action message into the output div on the page
