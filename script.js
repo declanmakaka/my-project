@@ -19,7 +19,7 @@ function findStrategy() {
   let action = "";
 
   // Check if the user typed "Plastic" (case-insensitive)
-  if (strategy.toLowerCase() === "Plastic") {
+  if (strategy.toLowerCase() === "plastic") {
     // Set the action message for the Plastic area
     action = "Dispose of plastic waste in a plastic recycling bin, use a reusable plastic container, or recycle plastic waste at a recycling center.";
   // Check if the user typed "Paper" (case-insensitive)
