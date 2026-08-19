@@ -107,3 +107,70 @@ function findStrategy() {
 // Get the "Find Strategy" button element from the page and listen for clicks
 const findActionButton = document.getElementById("findAction");
 findActionButton.addEventListener("click", findStrategy);
+// Sample dataset of garbage collection points, grouped by Nairobi area
+// Replace/expand with real locations as you get accurate data
+const collectionPoints = {
+  westlands: [
+    "Westlands Recycling Hub — Ring Road, near Sarit Centre",
+    "Green Bin Point — Waiyaki Way collection depot"
+  ],
+  cbd: [
+    "City Hall Waste Depot — City Hall Way",
+    "Central Recycling Point — Tom Mboya Street collection bin"
+  ],
+  kibera: [
+    "Kibera Community Recycling Center — Kibera Drive",
+    "Taka Ni Mali Collection Point — Olympic Estate"
+  ],
+  kasarani: [
+    "Kasarani Waste Collection Point — Mwiki Road",
+    "Green Estate Recycling Bin — Kasarani Sports Ground area"
+  ],
+  eastleigh: [
+    "Eastleigh Community Bin — 1st Avenue",
+    "Garissa Lodge Collection Point — Eastleigh Section III"
+  ],
+  karen: [
+    "Karen Recycling Depot — Karen Road",
+    "Hardy Collection Point — Ngong Road junction"
+  ]
+};
+
+// Function that reads the location input and displays nearby collection points
+function findLocation() {
+
+  // Get the text input element where the user types their area
+  const locationInput = document.getElementById("location");
+
+  // Read the value the user typed, trim spaces, and lowercase it for matching
+  const location = locationInput.value.trim().toLowerCase();
+
+  // Get the output div where the results will be displayed
+  const locationOutput = document.getElementById("locationOutput");
+
+  // Find the first area key that appears in what the user typed
+  let matchedArea = null;
+  for (const area in collectionPoints) {
+    if (location.includes(area)) {
+      matchedArea = area;
+      break;
+    }
+  }
+
+  if (matchedArea) {
+    const points = collectionPoints[matchedArea];
+    // Build an HTML list of the matching collection points
+    let listHTML = "<strong>Collection points near you:</strong><ul>";
+    points.forEach(function(point) {
+      listHTML += "<li>" + point + "</li>";
+    });
+    listHTML += "</ul>";
+    locationOutput.innerHTML = listHTML;
+  } else {
+    locationOutput.textContent = "No collection points found for that area yet. Try Westlands, CBD, Kibera, Kasarani, Eastleigh, or Karen.";
+  }
+}
+
+// Get the "Find Collection Points" button and listen for clicks
+const findLocationButton = document.getElementById("findLocation");
+findLocationButton.addEventListener("click", findLocation);
