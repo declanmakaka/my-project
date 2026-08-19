@@ -87,10 +87,8 @@ const findActionButton = document.getElementById("findAction");
 findActionButton.addEventListener("click", findStrategy);
 
 
-// ===== LOCATION FINDER SECTION =====
-
-// Real, verified collection points — only Nairobi has actual sample data so far.
-// Add more counties here once real, verified locations are available.
+// Collection points dataset, grouped by county, then by area within that county
+// Only Nairobi has sample data so far — add more counties/areas here as you get real data
 const collectionPoints = {
   nairobi: {
     westlands: [
@@ -118,78 +116,44 @@ const collectionPoints = {
       "Hardy Collection Point — Ngong Road junction"
     ]
   }
+  // Add other counties here later, following the same structure, e.g.:
+  // mombasa: { nyali: ["...", "..."] }
 };
 
-// Holds the real county/sub-county dataset once fetched
-let kenyaCountiesData = null;
-
-// Fetch the real, verified list of Kenyan counties and their sub-counties
-async function loadCountiesData() {
-  try {
-    const response = await fetch(
-      "https://raw.githubusercontent.com/Mondieki/kenya-counties-subcounties/master/counties.json"
-    );
-    kenyaCountiesData = await response.json();
-  } catch (error) {
-    console.error("Could not load county/sub-county data:", error);
-  }
-}
-
-// Load the data as soon as the page opens
-loadCountiesData();
-
+// Function that reads the selected county and typed area, then displays matching collection points
 function findLocation() {
   const countySelect = document.getElementById("county");
-  const countyValue = countySelect.value.trim().toLowerCase();
+  const county = countySelect.value.trim().toLowerCase();
 
   const locationInput = document.getElementById("location");
   const location = locationInput.value.trim().toLowerCase();
 
   const locationOutput = document.getElementById("locationOutput");
 
-  if (!countyValue) {
+  // Check that a county was actually selected
+  if (!county) {
     locationOutput.textContent = "Please select a county first.";
     return;
   }
 
-  if (!kenyaCountiesData) {
-    locationOutput.textContent = "Still loading county data — please try again in a moment.";
+  // Check whether we have any data at all for the selected county
+  const countyData = collectionPoints[county];
+  if (!countyData) {
+    locationOutput.textContent = "No collection point data is available for this county yet.";
     return;
   }
 
-  // Find the matching county object in the real dataset
-  const countyRecord = kenyaCountiesData.find(function(c) {
-    return c.name.trim().toLowerCase() === countyValue;
-  });
-
-  if (!countyRecord) {
-    locationOutput.textContent = "County data not found. Please select a valid county.";
-    return;
+  // Look for the typed area within the selected county's areas only
+  let matchedArea = null;
+  for (const area in countyData) {
+    if (location.includes(area)) {
+      matchedArea = area;
+      break;
+    }
   }
 
-  // Check if the typed area matches a real sub-county within this county
-  const matchedSubCounty = countyRecord.sub_counties.find(function(sub) {
-    return sub.trim().toLowerCase().includes(location) ||
-           location.includes(sub.trim().toLowerCase());
-  });
-
-  if (!matchedSubCounty) {
-    locationOutput.textContent =
-      "That location was not found in the county chosen. Please enter a location found within " +
-      countyRecord.name + " County.";
-    return;
-  }
-
-  // Valid area confirmed — now check if we have real collection point data for it
-  const countyKey = countyValue;
-  const areaKey = location;
-  const countyPoints = collectionPoints[countyKey];
-  const matchedPoints = countyPoints
-    ? Object.keys(countyPoints).find(function(key) { return areaKey.includes(key); })
-    : null;
-
-  if (matchedPoints) {
-    const points = countyPoints[matchedPoints];
+  if (matchedArea) {
+    const points = countyData[matchedArea];
     let listHTML = "<strong>Collection points near you:</strong><ul>";
     points.forEach(function(point) {
       const mapsQuery = encodeURIComponent(point + ", Kenya");
@@ -200,9 +164,10 @@ function findLocation() {
     listHTML += "</ul>";
     locationOutput.innerHTML = listHTML;
   } else {
-    locationOutput.innerHTML =
-      "<strong>" + matchedSubCounty + "</strong> is a recognized area in " + countyRecord.name +
-      " County, but we don't have verified collection point data for it yet. Check back soon as we add more locations.";
+    // Area not found within the selected county
+    locationOutput.textContent =
+      "That location was not found in the county chosen. Please enter a location found within " +
+      countySelect.options[countySelect.selectedIndex].text + " County.";
   }
 }
 
