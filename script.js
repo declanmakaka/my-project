@@ -95,42 +95,65 @@ const findActionButton = document.getElementById("findAction");
 findActionButton.addEventListener("click", findStrategy);
 
 
-// Sample dataset of garbage collection points, grouped by Nairobi area
+// Collection points dataset, grouped by county, then by area within that county
+// Only Nairobi has sample data so far — add more counties/areas here as you get real data
 const collectionPoints = {
-  westlands: [
-    "Westlands Recycling Hub — Ring Road, near Sarit Centre",
-    "Green Bin Point — Waiyaki Way collection depot"
-  ],
-  cbd: [
-    "City Hall Waste Depot — City Hall Way",
-    "Central Recycling Point — Tom Mboya Street collection bin"
-  ],
-  kibera: [
-    "Kibera Community Recycling Center — Kibera Drive",
-    "Taka Ni Mali Collection Point — Olympic Estate"
-  ],
-  kasarani: [
-    "Kasarani Waste Collection Point — Mwiki Road",
-    "Green Estate Recycling Bin — Kasarani Sports Ground area"
-  ],
-  eastleigh: [
-    "Eastleigh Community Bin — 1st Avenue",
-    "Garissa Lodge Collection Point — Eastleigh Section III"
-  ],
-  karen: [
-    "Karen Recycling Depot — Karen Road",
-    "Hardy Collection Point — Ngong Road junction"
-  ]
+  nairobi: {
+    westlands: [
+      "Westlands Recycling Hub — Ring Road, near Sarit Centre",
+      "Green Bin Point — Waiyaki Way collection depot"
+    ],
+    cbd: [
+      "City Hall Waste Depot — City Hall Way",
+      "Central Recycling Point — Tom Mboya Street collection bin"
+    ],
+    kibera: [
+      "Kibera Community Recycling Center — Kibera Drive",
+      "Taka Ni Mali Collection Point — Olympic Estate"
+    ],
+    kasarani: [
+      "Kasarani Waste Collection Point — Mwiki Road",
+      "Green Estate Recycling Bin — Kasarani Sports Ground area"
+    ],
+    eastleigh: [
+      "Eastleigh Community Bin — 1st Avenue",
+      "Garissa Lodge Collection Point — Eastleigh Section III"
+    ],
+    karen: [
+      "Karen Recycling Depot — Karen Road",
+      "Hardy Collection Point — Ngong Road junction"
+    ]
+  }
+  // Add other counties here later, following the same structure, e.g.:
+  // mombasa: { nyali: ["...", "..."] }
 };
 
-// Function that reads the location input and displays nearby collection points with map links
+// Function that reads the selected county and typed area, then displays matching collection points
 function findLocation() {
+  const countySelect = document.getElementById("county");
+  const county = countySelect.value.trim().toLowerCase();
+
   const locationInput = document.getElementById("location");
   const location = locationInput.value.trim().toLowerCase();
+
   const locationOutput = document.getElementById("locationOutput");
 
+  // Check that a county was actually selected
+  if (!county) {
+    locationOutput.textContent = "Please select a county first.";
+    return;
+  }
+
+  // Check whether we have any data at all for the selected county
+  const countyData = collectionPoints[county];
+  if (!countyData) {
+    locationOutput.textContent = "No collection point data is available for this county yet.";
+    return;
+  }
+
+  // Look for the typed area within the selected county's areas only
   let matchedArea = null;
-  for (const area in collectionPoints) {
+  for (const area in countyData) {
     if (location.includes(area)) {
       matchedArea = area;
       break;
@@ -138,12 +161,11 @@ function findLocation() {
   }
 
   if (matchedArea) {
-    const points = collectionPoints[matchedArea];
+    const points = countyData[matchedArea];
     let listHTML = "<strong>Collection points near you:</strong><ul>";
 
     points.forEach(function(point) {
-      // Turn the point name into a Google Maps search link
-      const mapsQuery = encodeURIComponent(point + ", Nairobi, Kenya");
+      const mapsQuery = encodeURIComponent(point + ", Kenya");
       const mapsLink = "https://www.google.com/maps/search/?api=1&query=" + mapsQuery;
 
       listHTML += "<li>" + point +
@@ -153,7 +175,10 @@ function findLocation() {
     listHTML += "</ul>";
     locationOutput.innerHTML = listHTML;
   } else {
-    locationOutput.textContent = "No collection points found for that area yet. Try Westlands, CBD, Kibera, Kasarani, Eastleigh, or Karen.";
+    // Area not found within the selected county
+    locationOutput.textContent =
+      "That location was not found in the county chosen. Please enter a location found within " +
+      countySelect.options[countySelect.selectedIndex].text + " County.";
   }
 }
 
