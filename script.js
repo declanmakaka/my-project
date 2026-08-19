@@ -19,31 +19,31 @@ function findStrategy() {
   let action = "";
 
   // Check if the user typed "Plastic" (case-insensitive)
-  if (strategy.toLowerCase() === "plastic") {
+  if (strategy.toLowerCase() === "plastic or plastic waste") {
     // Set the action message for the Plastic area
     action = "Dispose of plastic waste in a plastic recycling bin, use a reusable plastic container, or recycle plastic waste at a recycling center.";
   // Check if the user typed "Paper" (case-insensitive)
-  } else if (strategy.toLowerCase() === "paper") {
+  } else if (strategy.toLowerCase() === "paper or paper waste") {
     // Set the action message for the Paper area
     action = "Dispose of paper waste in a paper recycling bin, use a reusable paper container, or recycle paper waste at a recycling center.";
   // Check if the user typed "Metal" (case-insensitive)
-  } else if (strategy.toLowerCase() === "metal") {
+  } else if (strategy.toLowerCase() === "metal or metal waste") {
     // Set the action message for the Metal area
     action = "Dispose of metal waste in a metal recycling bin, use a reusable metal container, or recycle metal waste at a recycling center or scrap yard.";
   // Check if the user typed "Glass" (case-insensitive)
-  } else if (strategy.toLowerCase() === "glass") {
+  } else if (strategy.toLowerCase() === "glass or glass waste") {
     // Set the action message for the Glass area
     action = "Dispose of glass waste in a glass recycling bin, use a reusable glass container, or recycle glass waste at a recycling center.";
   // Check if the user typed "Organic" (case-insensitive)
-  } else if (strategy.toLowerCase() === "organic") {
+  } else if (strategy.toLowerCase() === "organic or food waste or organic waste") {
     // Set the action message for the Organic area
     action = "Dispose of organic waste in a compost bin, use a reusable organic container, or recycle organic waste at a recycling center.";
   // Check if the user typed "Electronics" (case-insensitive)
-  } else if (strategy.toLowerCase() === "electronics") {
+  } else if (strategy.toLowerCase() === "electronics or electronic waste or wires or cables") {
     // Set the action message for the Electronics area
-    action = "Dispose of electronics waste in a electronics recycling bin, use a reusable electronics container, or recycle electronics waste at a recycling center.";
+    action = "Dispose of electronics waste in an electronics recycling bin, use a reusable electronics container, or recycle electronics waste at a recycling center.";
   // Check if the user typed "Clothes" (case-insensitive)
-  } else if (strategy.toLowerCase() === "clothes") {
+  } else if (strategy.toLowerCase() === "clothes or fabric waste") {
     // Set the action message for the Clothes area
     action = "Dispose of clothes waste in a clothes recycling bin, use a reusable clothes container, or recycle clothes waste at a recycling center.";
   // If the strategy does not match any of the known areas
