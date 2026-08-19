@@ -127,3 +127,18 @@ button:active {
   min-height: 20px;
   color: #1b3a2b;
 }
+select#county {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid #a5d6a7;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: inherit;
+  margin-bottom: 16px;
+  background: #ffffff;
+}
+
+select#county:focus {
+  outline: none;
+  border-color: #2e7d32;
+}
