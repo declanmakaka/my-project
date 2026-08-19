@@ -7,59 +7,66 @@ alert("JavaScript has been loaded!!");
    alert("Button clicked!");
  })
 
-// Function that reads the strategy input and displays a matching climate action
+// Function that reads the waste type input and displays a management strategy plus two disposal options
 function findStrategy() {
-  // Get the text input element where the user types their strategy
-  const strategyInput = document.getElementById("strategy");
-  // Read the value the user typed and remove extra spaces from the start and end
-  const strategy = strategyInput.value.trim();
-  // Get the output div where the action message will be displayed
-  const actionOutput = document.getElementById("actionOutput");
-  // Create a variable to hold the action message; starts empty
-  let action = "";
-
-// Function that reads the waste type input and displays two matching disposal options
-function findStrategy() {
-
   // Get the text input element where the user types their waste type
   const strategyInput = document.getElementById("strategy");
-
   // Read the value the user typed, remove extra spaces, and lowercase it for matching
   const strategy = strategyInput.value.trim().toLowerCase();
-
   // Get the output div where the action message will be displayed
   const actionOutput = document.getElementById("actionOutput");
 
-  // Object holding two disposal options for each waste type
+  // Object holding a general management strategy plus two disposal options for each waste type
   const wasteOptions = {
-    plastic: [
-      "Recycle it at your nearest plastic recycling bin or collection point.",
-      "Reuse it as a container or repurpose it at home before throwing it away."
-    ],
-    paper: [
-      "Recycle it at a paper recycling bin or collection center.",
-      "Reuse it for notes, packaging, or composting if uncoated."
-    ],
-    metal: [
-      "Take it to a metal recycling center or scrap yard.",
-      "Reuse sturdy metal containers or cans before recycling them."
-    ],
-    glass: [
-      "Recycle it at a glass recycling bin or collection center.",
-      "Reuse glass jars and bottles as storage containers."
-    ],
-    organic: [
-      "Compost it at home or at a local composting site.",
-      "Use it as animal feed where appropriate, instead of throwing it away."
-    ],
-    electronics: [
-      "Take it to an e-waste recycling center — never bin it with regular trash.",
-      "Donate or repair working electronics instead of disposing of them."
-    ],
-    clothes: [
-      "Donate wearable clothes to a local charity or clothing bank.",
-      "Recycle worn-out fabric at a textile recycling point."
-    ]
+    plastic: {
+      strategy: "Reduce single-use plastic where possible, and separate plastic from other waste before disposal so it can be recycled cleanly.",
+      options: [
+        "Recycle it at your nearest plastic recycling bin or collection point.",
+        "Reuse it as a container or repurpose it at home before throwing it away."
+      ]
+    },
+    paper: {
+      strategy: "Keep paper dry and separated from wet waste, since damp or contaminated paper often can't be recycled.",
+      options: [
+        "Recycle it at a paper recycling bin or collection center.",
+        "Reuse it for notes, packaging, or composting if uncoated."
+      ]
+    },
+    metal: {
+      strategy: "Rinse food residue off metal containers before disposal to make recycling easier and more valuable.",
+      options: [
+        "Take it to a metal recycling center or scrap yard.",
+        "Reuse sturdy metal containers or cans before recycling them."
+      ]
+    },
+    glass: {
+      strategy: "Separate glass by color if your local collection point requires it, and handle broken glass carefully to avoid injury.",
+      options: [
+        "Recycle it at a glass recycling bin or collection center.",
+        "Reuse glass jars and bottles as storage containers."
+      ]
+    },
+    organic: {
+      strategy: "Separate organic waste at the source, since mixing it with non-biodegradable waste makes composting impossible.",
+      options: [
+        "Compost it at home or at a local composting site.",
+        "Use it as animal feed where appropriate, instead of throwing it away."
+      ]
+    },
+    electronics: {
+      strategy: "Never mix electronics with regular trash — they contain materials that can be hazardous if dumped or burned.",
+      options: [
+        "Take it to an e-waste recycling center — never bin it with regular trash.",
+        "Donate or repair working electronics instead of disposing of them."
+      ]
+    },
+    clothes: {
+      strategy: "Sort clothes into wearable and unwearable piles first, since each has a different best disposal route.",
+      options: [
+        "Donate wearable clothes to a local charity or clothing bank.",
+        "Recycle worn-out fabric at a textile recycling point."
+      ]
+    }
   };
 
   // Keywords to match against what the user typed, mapped to a waste type key above
@@ -87,10 +94,11 @@ function findStrategy() {
   }
 
   if (matchedType) {
-    const options = wasteOptions[matchedType];
+    const data = wasteOptions[matchedType];
     actionOutput.innerHTML =
-      "<strong>Option 1:</strong> " + options[0] +
-      "<br><strong>Option 2:</strong> " + options[1];
+      "<strong>Management strategy:</strong> " + data.strategy +
+      "<br><br><strong>Option 1:</strong> " + data.options[0] +
+      "<br><strong>Option 2:</strong> " + data.options[1];
   } else {
     actionOutput.textContent = "Please enter a valid type of waste (e.g. plastic, paper, metal, glass, organic, electronics, clothes).";
   }
@@ -98,17 +106,4 @@ function findStrategy() {
 
 // Get the "Find Strategy" button element from the page and listen for clicks
 const findActionButton = document.getElementById("findAction");
-findActionButton.addEventListener("click", findStrategy);
-  } else {
-    // Set the action message for any other strategy
-    action = "Please enter a valid type of waste.";
-  }
-
-  // Write the chosen action message into the output div on the page
-  actionOutput.textContent = action;
-}
-
-// Get the "Find Strategy" button element from the page
-const findActionButton = document.getElementById("findAction");
-// Listen for a click on the button and run findStrategy when clicked
 findActionButton.addEventListener("click", findStrategy);
