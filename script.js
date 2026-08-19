@@ -123,7 +123,7 @@ const collectionPoints = {
   ]
 };
 
-// Function that reads the location input and displays nearby collection points
+// Function that reads the location input and displays nearby collection points with map links
 function findLocation() {
   const locationInput = document.getElementById("location");
   const location = locationInput.value.trim().toLowerCase();
@@ -140,9 +140,16 @@ function findLocation() {
   if (matchedArea) {
     const points = collectionPoints[matchedArea];
     let listHTML = "<strong>Collection points near you:</strong><ul>";
+
     points.forEach(function(point) {
-      listHTML += "<li>" + point + "</li>";
+      // Turn the point name into a Google Maps search link
+      const mapsQuery = encodeURIComponent(point + ", Nairobi, Kenya");
+      const mapsLink = "https://www.google.com/maps/search/?api=1&query=" + mapsQuery;
+
+      listHTML += "<li>" + point +
+        " — <a href='" + mapsLink + "' target='_blank' rel='noopener noreferrer'>Get Directions</a></li>";
     });
+
     listHTML += "</ul>";
     locationOutput.innerHTML = listHTML;
   } else {
