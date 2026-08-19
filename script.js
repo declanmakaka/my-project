@@ -1,22 +1,11 @@
 alert("JavaScript has been loaded!!");
 
-//target the element
- let myButton = document.getElementById("button1")
-
- myButton.addEventListener("click",function(){
-   alert("Button clicked!");
- })
-
 // Function that reads the waste type input and displays a management strategy plus two disposal options
 function findStrategy() {
-  // Get the text input element where the user types their waste type
   const strategyInput = document.getElementById("strategy");
-  // Read the value the user typed, remove extra spaces, and lowercase it for matching
   const strategy = strategyInput.value.trim().toLowerCase();
-  // Get the output div where the action message will be displayed
   const actionOutput = document.getElementById("actionOutput");
 
-  // Object holding a general management strategy plus two disposal options for each waste type
   const wasteOptions = {
     plastic: {
       strategy: "Reduce single-use plastic where possible, and separate plastic from other waste before disposal so it can be recycled cleanly.",
@@ -69,7 +58,6 @@ function findStrategy() {
     }
   };
 
-  // Keywords to match against what the user typed, mapped to a waste type key above
   const keywordMap = {
     plastic: "plastic",
     paper: "paper",
@@ -84,7 +72,6 @@ function findStrategy() {
     fabric: "clothes"
   };
 
-  // Find the first keyword that appears in what the user typed
   let matchedType = null;
   for (const keyword in keywordMap) {
     if (strategy.includes(keyword)) {
@@ -104,11 +91,11 @@ function findStrategy() {
   }
 }
 
-// Get the "Find Strategy" button element from the page and listen for clicks
 const findActionButton = document.getElementById("findAction");
 findActionButton.addEventListener("click", findStrategy);
+
+
 // Sample dataset of garbage collection points, grouped by Nairobi area
-// Replace/expand with real locations as you get accurate data
 const collectionPoints = {
   westlands: [
     "Westlands Recycling Hub — Ring Road, near Sarit Centre",
@@ -138,17 +125,10 @@ const collectionPoints = {
 
 // Function that reads the location input and displays nearby collection points
 function findLocation() {
-
-  // Get the text input element where the user types their area
   const locationInput = document.getElementById("location");
-
-  // Read the value the user typed, trim spaces, and lowercase it for matching
   const location = locationInput.value.trim().toLowerCase();
-
-  // Get the output div where the results will be displayed
   const locationOutput = document.getElementById("locationOutput");
 
-  // Find the first area key that appears in what the user typed
   let matchedArea = null;
   for (const area in collectionPoints) {
     if (location.includes(area)) {
@@ -159,7 +139,6 @@ function findLocation() {
 
   if (matchedArea) {
     const points = collectionPoints[matchedArea];
-    // Build an HTML list of the matching collection points
     let listHTML = "<strong>Collection points near you:</strong><ul>";
     points.forEach(function(point) {
       listHTML += "<li>" + point + "</li>";
@@ -171,6 +150,5 @@ function findLocation() {
   }
 }
 
-// Get the "Find Collection Points" button and listen for clicks
 const findLocationButton = document.getElementById("findLocation");
 findLocationButton.addEventListener("click", findLocation);
