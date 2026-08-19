@@ -1,4 +1,3 @@
-alert("JavaScript has been loaded!!");
 
 // ===== WASTE STRATEGY SECTION =====
 function findStrategy() {
