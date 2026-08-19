@@ -18,35 +18,87 @@ function findStrategy() {
   // Create a variable to hold the action message; starts empty
   let action = "";
 
-  // Check if the user typed "Plastic" (case-insensitive)
-  if (strategy.toLowerCase() === "plastic or plastic waste") {
-    // Set the action message for the Plastic area
-    action = "Dispose of plastic waste in a plastic recycling bin, use a reusable plastic container, or recycle plastic waste at a recycling center.";
-  // Check if the user typed "Paper" (case-insensitive)
-  } else if (strategy.toLowerCase() === "paper or paper waste") {
-    // Set the action message for the Paper area
-    action = "Dispose of paper waste in a paper recycling bin, use a reusable paper container, or recycle paper waste at a recycling center.";
-  // Check if the user typed "Metal" (case-insensitive)
-  } else if (strategy.toLowerCase() === "metal or metal waste") {
-    // Set the action message for the Metal area
-    action = "Dispose of metal waste in a metal recycling bin, use a reusable metal container, or recycle metal waste at a recycling center or scrap yard.";
-  // Check if the user typed "Glass" (case-insensitive)
-  } else if (strategy.toLowerCase() === "glass or glass waste") {
-    // Set the action message for the Glass area
-    action = "Dispose of glass waste in a glass recycling bin, use a reusable glass container, or recycle glass waste at a recycling center.";
-  // Check if the user typed "Organic" (case-insensitive)
-  } else if (strategy.toLowerCase() === "organic or food waste or organic waste") {
-    // Set the action message for the Organic area
-    action = "Dispose of organic waste in a compost bin, use a reusable organic container, or recycle organic waste at a recycling center.";
-  // Check if the user typed "Electronics" (case-insensitive)
-  } else if (strategy.toLowerCase() === "electronics or electronic waste or wires or cables") {
-    // Set the action message for the Electronics area
-    action = "Dispose of electronics waste in an electronics recycling bin, use a reusable electronics container, or recycle electronics waste at a recycling center.";
-  // Check if the user typed "Clothes" (case-insensitive)
-  } else if (strategy.toLowerCase() === "clothes or fabric waste") {
-    // Set the action message for the Clothes area
-    action = "Dispose of clothes waste in a clothes recycling bin, use a reusable clothes container, or recycle clothes waste at a recycling center.";
-  // If the strategy does not match any of the known areas
+// Function that reads the waste type input and displays two matching disposal options
+function findStrategy() {
+
+  // Get the text input element where the user types their waste type
+  const strategyInput = document.getElementById("strategy");
+
+  // Read the value the user typed, remove extra spaces, and lowercase it for matching
+  const strategy = strategyInput.value.trim().toLowerCase();
+
+  // Get the output div where the action message will be displayed
+  const actionOutput = document.getElementById("actionOutput");
+
+  // Object holding two disposal options for each waste type
+  const wasteOptions = {
+    plastic: [
+      "Recycle it at your nearest plastic recycling bin or collection point.",
+      "Reuse it as a container or repurpose it at home before throwing it away."
+    ],
+    paper: [
+      "Recycle it at a paper recycling bin or collection center.",
+      "Reuse it for notes, packaging, or composting if uncoated."
+    ],
+    metal: [
+      "Take it to a metal recycling center or scrap yard.",
+      "Reuse sturdy metal containers or cans before recycling them."
+    ],
+    glass: [
+      "Recycle it at a glass recycling bin or collection center.",
+      "Reuse glass jars and bottles as storage containers."
+    ],
+    organic: [
+      "Compost it at home or at a local composting site.",
+      "Use it as animal feed where appropriate, instead of throwing it away."
+    ],
+    electronics: [
+      "Take it to an e-waste recycling center — never bin it with regular trash.",
+      "Donate or repair working electronics instead of disposing of them."
+    ],
+    clothes: [
+      "Donate wearable clothes to a local charity or clothing bank.",
+      "Recycle worn-out fabric at a textile recycling point."
+    ]
+  };
+
+  // Keywords to match against what the user typed, mapped to a waste type key above
+  const keywordMap = {
+    plastic: "plastic",
+    paper: "paper",
+    metal: "metal",
+    glass: "glass",
+    organic: "organic",
+    food: "organic",
+    electronic: "electronics",
+    wire: "electronics",
+    cable: "electronics",
+    clothes: "clothes",
+    fabric: "clothes"
+  };
+
+  // Find the first keyword that appears in what the user typed
+  let matchedType = null;
+  for (const keyword in keywordMap) {
+    if (strategy.includes(keyword)) {
+      matchedType = keywordMap[keyword];
+      break;
+    }
+  }
+
+  if (matchedType) {
+    const options = wasteOptions[matchedType];
+    actionOutput.innerHTML =
+      "<strong>Option 1:</strong> " + options[0] +
+      "<br><strong>Option 2:</strong> " + options[1];
+  } else {
+    actionOutput.textContent = "Please enter a valid type of waste (e.g. plastic, paper, metal, glass, organic, electronics, clothes).";
+  }
+}
+
+// Get the "Find Strategy" button element from the page and listen for clicks
+const findActionButton = document.getElementById("findAction");
+findActionButton.addEventListener("click", findStrategy);
   } else {
     // Set the action message for any other strategy
     action = "Please enter a valid type of waste.";
