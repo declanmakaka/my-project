@@ -142,3 +142,19 @@ select#county:focus {
   outline: none;
   border-color: #2e7d32;
 }
+
+#evidence h3 {
+  color: #43a047;
+  font-size: 1.05rem;
+  margin-top: 18px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+#evidence h3:first-of-type {
+  margin-top: 20px;
+}
+
+#evidence p {
+  margin-bottom: 4px;
+}
