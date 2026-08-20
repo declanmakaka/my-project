@@ -7,26 +7,40 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+<nav id="topNav">
+<button id="navHome" class="nav-btn active">Home</button>
+<button id="navStart" class="nav-btn">Get Started</button>
+</nav>
+
+<!-- ===== HOME PAGE ===== -->
+<div id="homePage" class="page active">
 <header>
-<h1>TAKA POA</h1>
-<p class="problem-statement">Garbage littering in Kenya has become a significant environmental challenge, affecting both urban and rural areas. </p>
+<h1>GARBAGE SITE FINDER</h1>
+<p class="problem-statement">People in Nairobi, including the youth, who want to recycle litter eg plastic</p>
 </header>
 <main>
 <section id="evidence">
-<section id="evidence">
 <h2>Why this problem matters</h2>
 <p>The National Environment Management Authority (NEMA) has found that areas, especially urban areas and markets, are dirty because of a lack of knowledge on the locations of litter bins or collection sites.</p>
-<section id="strategy-feature">
-<h2>The tool</h2>
-<p> Enter the type of waste you want to dispose of, and we will give you the best way to dispose of it.</p>
+
+<h3>Problem Statement</h3>
+<p>Nairobi residents, especially the youth, who want to dispose of or recycle waste properly often don't know where their nearest collection point is — leading to littering and poor waste management, even among people who are willing to recycle.</p>
+
+<h3>Solution Hypothesis</h3>
+<p>If users are shown the correct disposal strategy for their specific waste type, along with the nearest verified collection point and direct Google Maps navigation, then more people will dispose of waste properly — because the core barrier isn't a lack of willingness, but a lack of information about where to go.</p>
+</section>
+</main>
+</div>
+
+<!-- ===== INPUT PAGE ===== -->
+<div id="inputPage" class="page">
+<main>
+<section id="input-feature">
+<h2>Tell us about your waste</h2>
+
 <label for="strategy">Enter your type of waste:</label>
 <input type="text" id="strategy" placeholder="e.g. Plastic, Paper, Metal, etc.">
-<button id="findAction">Find Strategy</button>
-<div id="actionOutput"></div>
-</section>
-<section id="location-feature">
-<h2>Find Garbage Collection Points Near You</h2>
-<p>Select your county and enter your area or estate to find nearby collection points.</p>
 
 <label for="county">Select your county:</label>
 <select id="county">
@@ -82,10 +96,24 @@
 
 <label for="location">Enter your area/estate:</label>
 <input type="text" id="location" placeholder="e.g. Westlands, CBD, Kibera">
-<button id="findLocation">Find Collection Points</button>
-<div id="locationOutput"></div>
+
+<button id="getResultsBtn">Get My Results</button>
 </section>
 </main>
+</div>
+
+<!-- ===== RESULTS PAGE ===== -->
+<div id="resultsPage" class="page">
+<main>
+<section id="results-feature">
+<h2>Your Results</h2>
+<div id="strategyResult"></div>
+<div id="locationResult"></div>
+<button id="backToStart">Start Over</button>
+</section>
+</main>
+</div>
+
 <script src="script.js"></script>
 </body>
 </html>
