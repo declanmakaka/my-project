@@ -78,7 +78,7 @@ function findStrategy() {
       "<br><br><strong>Option 1:</strong> " + data.options[0] +
       "<br><strong>Option 2:</strong> " + data.options[1];
   } else {
-    actionOutput.textContent = "Please enter a valid type of waste (e.g. plastic, paper, metal, glass, organic ( e.g. food scraps or yard waste)), electronics (e.g. old phones, computers), clothes).";
+    actionOutput.textContent = "Please enter a valid type of waste (e.g. plastic, paper, metal, glass, organic ( e.g. food scraps or yard waste), electronics (e.g. old phones, computers), clothes).";
   }
 }
 
