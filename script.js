@@ -1,3 +1,4 @@
+alert ("Welcome to TAKA POA! This website helps you find nearby waste collection points and provides strategies for managing different types of waste. Please select your county and enter your location to get started.");
 
 // ===== WASTE STRATEGY SECTION =====
 function findStrategy() {
